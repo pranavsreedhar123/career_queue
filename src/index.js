@@ -4,11 +4,12 @@ import "./index.css";
 import App from "./App";
 import StudentProfile from "./StudentProfile";
 import reportWebVitals from "./reportWebVitals";
+import CompanyQueue from "./CompanyQueue";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <StudentProfile />
+    <CompanyQueue/>
   </React.StrictMode>
 );
 
