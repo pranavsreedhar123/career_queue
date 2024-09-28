@@ -1,0 +1,63 @@
+/* General styling for the map */
+.map-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .map-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px); /* Adjust the number of columns */
+    grid-gap: 20px;
+    padding: 20px;
+    background-color: #e0e0e0; /* Light grey background */
+    border-radius: 10px;
+  }
+  
+  .map-grid .company-box {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .map-grid .company-box:hover {
+    background-color: #fcd34d; /* Highlight on hover (yellow) */
+    color: black;
+  }
+  
+  .map-modal {
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  /* Styling for the modal headers */
+  .map-modal .modal-header {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .map-modal .modal-body {
+    padding: 10px;
+    line-height: 1.5;
+  }
+  
+  .map-modal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

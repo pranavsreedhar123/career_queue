@@ -3,39 +3,41 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-// const cookieParser = require();
 import morgan from "morgan";
+import queueRouter from "./queueRouter.js"; // Ensure this path is correct
 
 const app = express();
 dotenv.config();
 
+// Connect to MongoDB
 mongoose
-  .connect(process.env.DATABASE)
-  .then(() => console.log("DB connected"))
-  .catch((err) => console.log("DB connection error: ", err));
+    .connect('mongodb+srv://sharada:Fmo01dDtNLPUViox@careerqueuecluster0.tuz6h.mongodb.net/')
+    .then(() => console.log("DB connected"))
+    .catch((err) => console.log("DB connection error: ", err));
 
-// middlewares
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  cors({
+app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
-  })
-);
+}));
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-//ROUTERS
-// app.use("/users", usersRouter);
-// app.use("/leagues", leaguesRouter);
+// Queue routes
+app.use("/queue", queueRouter);
 
+// Basic route
 app.get("/", (req, res) => {
-  res.json({ mssg: "Welcome!" });
+    res.json({ msg: "Welcome G=Hack!" });
 });
 
-app.listen(8000, () => {
-  console.log(`Server is running on port 8000`);
-  sendInvoice();
+
+
+// Start the server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
