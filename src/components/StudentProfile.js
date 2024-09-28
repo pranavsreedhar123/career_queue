@@ -10,6 +10,7 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
+import './StudentProfile.css'; // Import CSS
 
 const StudentProfile = () => {
   const skills = ["Singing", "Yapping", "Google Drawing", "HTML", "CSS", "LC3"];
@@ -45,43 +46,32 @@ const StudentProfile = () => {
   };
 
   return (
-    <Box padding={30} margin="auto" borderRadius="md">
+    <Box className="student-profile-container">
       <HStack align="flex-start" mb={6}>
         <VStack align="flex-start" spacing={1}>
           <Image
-            borderRadius="md"
-            boxSize="100px"
+            className="profile-image"
             src="sg.jpeg"
             alt="SHARADAAAAAA G"
           />
-          <Text fontSize="2xl" fontWeight="bold">
-            SHARADAAAAAA G
-          </Text>
-          <Text fontSize="sm">Bio: GT Webdev Lover</Text>
-          <Text fontSize="sm">Major: Computer Science</Text>
-          <Text fontSize="sm">Year: 2nd Year</Text>
-          <Text fontSize="sm">Graduation Date: Spring 2026</Text>
-          <Text fontSize="sm">Looking For: Entry-Level Job</Text>
+          <Text className="profile-name">SHARADAAAAAA G</Text>
+          <Text className="profile-info">Bio: GT Webdev Lover</Text>
+          <Text className="profile-info">Major: Computer Science</Text>
+          <Text className="profile-info">Year: 2nd Year</Text>
+          <Text className="profile-info">Graduation Date: Spring 2026</Text>
+          <Text className="profile-info">Looking For: Entry-Level Job</Text>
         </VStack>
         <VStack marginLeft={30}>
-          <Box borderRadius="md" mb={4}>
-            <Text fontWeight="bold" mb={2}>
-              Top Skills
-            </Text>
+          <Box className="skills-container">
+            <Text className="skills-title">Top Skills</Text>
+            <SimpleGrid columns={2} spacing={4}>
+              {skills.map((skill, i) => (
+                <Box key={i} className="skill-box">
+                  <Text>{skill}</Text>
+                </Box>
+              ))}
+            </SimpleGrid>
           </Box>
-          <SimpleGrid columns={2} spacing={2}>
-            {skills.map((skill, i) => (
-              <Box
-                key={i}
-                p={2}
-                borderRadius="md"
-                border="1px solid black !important"
-                style={{ boxShadow: "0 2px 4px rgba(0,0,0,0.1) !important" }}
-              >
-                <Text fontSize="sm">{skill}</Text>
-              </Box>
-            ))}
-          </SimpleGrid>
           <Input
             type="file"
             ref={fileInput}
@@ -91,10 +81,7 @@ const StudentProfile = () => {
           />
           <Button
             onClick={handleUploadClick}
-            colorScheme="yellow"
-            variant="solid"
-            width="full"
-            boxShadow="sm"
+            className="upload-button"
           >
             {fileName ? `File Selected: ${fileName}` : "Upload Resume"}
           </Button>

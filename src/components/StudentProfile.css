@@ -1,0 +1,105 @@
+/* Main container for the profile */
+.student-profile-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Profile image styling */
+  .profile-image {
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  /* Text styling for name */
+  .profile-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  /* Bio and info styling */
+  .profile-info {
+    font-size: 16px;
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.6;
+  }
+  
+  /* Container for skills section */
+  .skills-container {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .skills-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .skill-box {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Add hover effect to skills */
+  .skill-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Resume upload button styling */
+  .upload-button {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #ffcc00;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 0;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Button hover effect */
+  .upload-button:hover {
+    background-color: #e6b800;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .student-profile-container {
+      padding: 20px;
+    }
+  
+    .profile-image {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .profile-name {
+      font-size: 22px;
+    }
+  
+    .skills-container {
+      margin-top: 15px;
+    }
+  
+    .upload-button {
+      padding: 10px 0;
+    }
+  }
+  
