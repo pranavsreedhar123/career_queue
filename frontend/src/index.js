@@ -2,17 +2,30 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import StudentProfile from "./StudentProfile";
+import StudentProfile from "./components/StudentProfile";
+import Map from "./components/Map";
+import Navbar from "./components/Navbar"
 import reportWebVitals from "./reportWebVitals";
 import CompanyQueue from "./CompanyQueue";
 import { ChakraProvider } from "@chakra-ui/react";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+const router = createBrowserRouter([
+  { path: "/", element: <StudentProfile /> },
+  { path: "/map", element: <Map /> },
+  { path: "/queue", element: <CompanyQueue /> },
+])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ChakraProvider>
-      <CompanyQueue /> {/* Wrap with ChakraProvider */}
+      {/* <CompanyQueue /> Wrap with ChakraProvider */}
+      {/* <Navbar />
+      <StudentProfile /> */}
+      <RouterProvider router={router} />
     </ChakraProvider>
+
   </React.StrictMode>
 );
 

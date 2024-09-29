@@ -1,0 +1,72 @@
+/* Navbar Container */
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 15px 7%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for a sleek look */
+    position: sticky; /* Makes it stick to the top on scroll */
+    top: 0;
+    z-index: 1000;
+}
+
+/* Navbar Brand (Logo or App Name) */
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Darker color for visibility */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Navbar List */
+ul {
+    flex: 1;
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Center the links */
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar List Items */
+ul li {
+    display: inline-block;
+    margin: 10px 20px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Links in Navbar */
+ul li a {
+    color: #007bff; /* Blue link color */
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effect on Links */
+ul li a:hover {
+    background-color: #007bff; /* Background hover color */
+    color: white; /* Change text to white on hover */
+    border-radius: 4px; /* Rounded edges for hover effect */
+}
+
+/* Mobile-friendly Adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px 5%;
+    }
+
+    ul {
+        flex-direction: column;
+    }
+
+    ul li {
+        margin: 10px 0; /* Increase space between links on mobile */
+    }
+}
