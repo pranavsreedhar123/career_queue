@@ -1,8 +1,6 @@
 {
-  "name": "career_queue",
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
+<<<<<<<< Updated upstream:frontend/package.json
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -40,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+========
+    "@chakra-ui/icons": "^2.1.1"
+>>>>>>>> Stashed changes:package.json
   }
 }

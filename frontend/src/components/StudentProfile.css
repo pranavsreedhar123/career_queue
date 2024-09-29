@@ -1,105 +1,165 @@
 /* Main container for the profile */
 .student-profile-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Profile image styling */
-  .profile-image {
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  /* Text styling for name */
-  .profile-name {
-    font-size: 26px;
-    font-weight: 700;
-    color: #333;
-  }
-  
-  /* Bio and info styling */
-  .profile-info {
-    font-size: 16px;
-    color: #555;
-    margin-top: 5px;
-    line-height: 1.6;
-  }
-  
-  /* Container for skills section */
-  .skills-container {
-    margin-top: 20px;
-    width: 100%;
-  }
-  
-  .skills-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .skill-box {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Add hover effect to skills */
-  .skill-box:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Resume upload button styling */
-  .upload-button {
-    margin-top: 20px;
-    width: 100%;
-    background-color: #ffcc00;
-    color: #333;
-    font-weight: 600;
-    padding: 12px 0;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Button hover effect */
-  .upload-button:hover {
-    background-color: #e6b800;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Responsive design for smaller screens */
-  @media (max-width: 768px) {
-    .student-profile-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Profile image styling */
+.profile-image {
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  margin: auto; /* Center the image */
+}
+
+/* Text styling for name */
+.profile-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Information section styling */
+.info-section {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.info-label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.info-value {
+  font-size: 16px;
+  color: #555;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-left: 50px; /* Shift the fields to the right */
+}
+
+/* Top Skills section */
+.skills-container {
+  margin-top: 20px;
+  padding-left: 50px; /* Move skills slightly to the right */
+}
+
+.skills-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.skill-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.skill-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Remove skill button */
+.remove-skill-button {
+  margin-left: 10px;
+  padding: 2px 6px;
+  background-color: #ff4d4d;
+  color: white;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-skill-button:hover {
+  background-color: #e60000;
+}
+
+/* Edit/Save button in top-right corner */
+.edit-button {
+  position: absolute;
+  top: 20px;
+  right: -700px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Upload button */
+.upload-button {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #ffcc00;
+  color: #333;
+  font-weight: 600;
+  padding: 12px 0;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-button:hover {
+  background-color: #e6b800;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .student-profile-container {
       padding: 20px;
-    }
-  
-    .profile-image {
+  }
+
+  .profile-image {
       width: 100px;
       height: 100px;
-    }
-  
-    .profile-name {
-      font-size: 22px;
-    }
-  
-    .skills-container {
-      margin-top: 15px;
-    }
-  
-    .upload-button {
-      padding: 10px 0;
-    }
   }
-  
+
+  .profile-name {
+      font-size: 22px;
+  }
+
+  .info-row {
+      flex-direction: column;
+  }
+}

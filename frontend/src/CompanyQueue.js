@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
+import theme from "./theme";
 import Navbar from "./components/Navbar";
 import {
     Box,
-    SimpleGrid,
-    Heading,
+    VStack,
+    HStack,
     Text,
+    Image,
     Button,
-    Icon,
+    SimpleGrid,
+    Input,
     useToast,
+    Heading,
+    Badge,
+    Icon
 } from "@chakra-ui/react";
+import { FaList } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
 
 const companies = [
@@ -27,194 +34,226 @@ const companies = [
         "Wait Time": "55 min"
     },
     {
-        "Company Name": "NCR",
+        "Company Name": "Spotify",
         "Location": "A2",
         "Logo": "",
-        "Number of People": 9,
-        "Wait Time": "45 min"
+        "Number of People": 4,
+        "Wait Time": "20 min"
     },
     {
         "Company Name": "Google",
         "Location": "B0",
         "Logo": "",
-        "Number of People": 7,
-        "Wait Time": "35 min"
+        "Number of People": 6,
+        "Wait Time": "30 min"
     },
     {
-        "Company Name": "Spotify",
+        "Company Name": "Verizon",
         "Location": "B1",
         "Logo": "",
-        "Number of People": 7,
-        "Wait Time": "35 min"
+        "Number of People": 3,
+        "Wait Time": "15 min"
     },
     {
         "Company Name": "Bose",
         "Location": "B2",
         "Logo": "",
-        "Number of People": 6,
-        "Wait Time": "30 min"
+        "Number of People": 8,
+        "Wait Time": "40 min"
+    },
+    {
+        "Company Name": "Sony",
+        "Location": "C0",
+        "Logo": "",
+        "Number of People": 3,
+        "Wait Time": "15 min"
+    },
+    {
+        "Company Name": "NCR",
+        "Location": "C1",
+        "Logo": "",
+        "Number of People": 9,
+        "Wait Time": "45 min"
+    },
+    {
+        "Company Name": "Tesla",
+        "Location": "C2",
+        "Logo": "",
+        "Number of People": 3,
+        "Wait Time": "15 min"
     }
 ];
 
-function CompanyQueue() {
-    const [joinedCompany, setJoinedCompany] = useState({}); // Track if the user has joined a queue for each company
-    const [timers, setTimers] = useState({}); // Track timers for each company
-    const toast = useToast(); // Initialize toast for notifications
+function CompanyQueue({ companyName, avgWaitTimePerPerson }) {
+    const [queue, setQueue] = useState([]);
 
-    // Load the joined company data and timers from localStorage when the component mounts
-    useEffect(() => {
-        const savedQueue = JSON.parse(localStorage.getItem("joinedQueue")) || {};
-        const savedTimers = JSON.parse(localStorage.getItem("timers")) || {};
+    const joinQueue = (personName, company) => {
+        setQueue((prevQueue) => [...prevQueue, personName]);
+        console.log(`${personName} has joined the queue for ${company}.`);
+    };
 
-        setJoinedCompany(savedQueue);
-        setTimers(savedTimers);
-
-        // Start timers for any existing entries
-        Object.keys(savedTimers).forEach((company) => {
-            const timeLeft = savedTimers[company].timeLeft;
-            if (timeLeft > 0) {
-                startTimer(company, timeLeft);
-            }
+    const showQueue = (company) => {
+        console.log(`Queue for ${company}:`);
+        queue.forEach((person, index) => {
+            console.log(`${index + 1}. ${person}`);
         });
-
-        return () => {
-            // Cleanup any timers when the component unmounts
-            Object.keys(timers).forEach(company => {
-                clearInterval(timers[company]?.interval);
-            });
-        };
-    }, []);
-
-    const joinQueue = (companyName) => {
-        const waitTimeInSeconds = parseInt(companies.find(company => company["Company Name"] === companyName)["Wait Time"]) * 60; // Convert wait time to seconds
-
-        // Mark the company as joined and save to localStorage
-        const updatedJoinedCompany = {
-            ...joinedCompany,
-            [companyName]: true,
-        };
-        setJoinedCompany(updatedJoinedCompany);
-        localStorage.setItem("joinedQueue", JSON.stringify(updatedJoinedCompany));
-
-        // Start the timer for the estimated wait time
-        startTimer(companyName, waitTimeInSeconds);
     };
 
-    const startTimer = (companyName, waitTimeInSeconds) => {
-        let timeLeft = waitTimeInSeconds;
-
-        // Clear existing timer if it exists
-        if (timers[companyName]) {
-            clearInterval(timers[companyName]?.interval);
+    const showPosition = (personName, company) => {
+        const position = queue.indexOf(personName) + 1;
+        if (position > 0) {
+            console.log(`${personName} is at position ${position} in the queue for ${company}.`);
+        } else {
+            console.log(`${personName} is not in the queue for ${company}.`);
         }
-
-        // Create a new interval
-        const interval = setInterval(() => {
-            timeLeft -= 1;
-
-            // Update timers state
-            setTimers((prevTimers) => {
-                const newTimers = { ...prevTimers, [companyName]: { timeLeft, interval } };
-                localStorage.setItem("timers", JSON.stringify(newTimers)); // Save updated timers to localStorage
-                return newTimers;
-            });
-
-            // Notify user when time is up
-            if (timeLeft <= 0) {
-                clearInterval(interval);
-                toast({
-                    title: "It's your turn!",
-                    description: `You are now next in line for ${companyName}.`,
-                    status: "success",
-                    duration: 5000,
-                    isClosable: true,
-                });
-                // Clear timer after alert
-                setTimers((prevTimers) => {
-                    const updatedTimers = { ...prevTimers };
-                    delete updatedTimers[companyName]; // Remove the timer for this company
-                    return updatedTimers;
-                });
-                localStorage.setItem("timers", JSON.stringify({ ...timers, [companyName]: null })); // Update localStorage
-            }
-        }, 1000);
     };
+
+    const getPosition = (personName, company) => {
+        const position = queue.indexOf(personName) + 1; // Calculate position (1-based index)
+        return position > 0 ? position : null; // Return null if not found
+        console.log(`${personName} is at position ${position} in the queue for ${company}.`);
+    };
+
+    const estimatedWaitTime = () => {
+        const waitTime = queue.length * avgWaitTimePerPerson;
+        console.log(`Estimated wait time for ${companyName}: ${waitTime} minutes.`);
+    };
+
+    // Call these functions as needed, or create buttons to trigger them
 
     return (
         <div>
             <Navbar />
-            {companies.map((company, i) => (
-                <Box
-                    key={i}
-                    m={4}
-                    backgroundColor="lightblue"
-                    borderRadius="md"
-                    p={4}
-                    border="2px solid black"
-                    w="100%"
-                    display="flex"
-                    maxW="1000px"
-                    boxShadow="md"
-                >
-                    <SimpleGrid columns={3} spacing={10}>
-                        {/* Column 1: Company Info */}
-                        <Box display="flex" alignItems="center" flexDirection="row">
-                            <Icon as={FaBuilding} boxSize={10} color="blue.500" mr={4} />
-                            <Heading as="h1" size="2xl" noOfLines={1} mb={4}>
-                                {company["Company Name"]}
-                            </Heading>
-                        </Box>
+            {/* <Box>
+                    <Heading as='h1' size='2xl' noOfLines={1}>{companyName}Google</Heading>
+                    <Button onClick={() => joinQueue('Alice', 'Google')}
+                        bg="#fed7d7" // Soft color
+                        variant="solid"
+                        mt={2} // Margin top for spacing
+                        px={4} // Extra padding for a button-like feel
+                        py={2}
+                        size='sm'
+                        rounded='md'
+                        borderRadius="full" // Rounded edges
 
-                        {/* Column 2: Estimated Wait Time */}
-                        <Box mt={4}>
-                            <Text fontSize="lg" fontWeight="bold">
-                                Estimated Wait Time: {company["Wait Time"]}
-                            </Text>
+                        boxShadow="md" // Shadow for depth
+                        _hover={{
+                            background: "white",
+                            transform: "scale(1.05)"
+                        }}
+                    >
+                        Join Queue
 
-                            {/* Conditionally render "Joined Queue" if the user has joined */}
-                            {joinedCompany[company["Company Name"]] && (
-                                <Heading as="h3" size="md" color="red.500" mt={2}>
-                                    Joined Queue: {Math.floor(parseInt(company["Wait Time"]) / 5) + 1}
-                                    {timers[company["Company Name"]] && (
-                                        <Text>
-                                            {" "}
-                                            - Time left: {
-                                                Math.floor(timers[company["Company Name"]].timeLeft / 60) || 0
-                                            }:
-                                            {("0" + (timers[company["Company Name"]].timeLeft % 60 || 0)).slice(-2)}
-                                        </Text>
-                                    )}
-                                </Heading>
-                            )}
-                        </Box>
+                    </Button>
 
-                        {/* Column 3: Join Queue Button */}
-                        <Box
-                            p={4}
-                            borderRadius="md"
-                            display="flex"
-                            flexDirection="column"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Button
-                                onClick={() => joinQueue(company["Company Name"])} // Pass company dynamically
-                                colorScheme="pink"
-                                variant="solid"
-                                px={4}
-                                py={2}
-                                borderRadius="full"
-                                boxShadow="md"
-                                _hover={{ bg: "pink.300", transform: "scale(1.05)" }}
-                                mb={4}
-                                disabled={joinedCompany[company["Company Name"]]} // Disable button if already joined
+                    <Button
+                        onClick={() => showQueue('Google')}
+                        leftIcon={<Icon as={FaList} />} // Icon for cuteness
+                        bg="#d2edce" // Soft color
+                        variant="solid"
+                        mt={2} // Margin top for spacing
+                        px={4} // Extra padding for a button-like feel
+                        py={2}
+                        size='sm'
+                        rounded='md'
+                        borderRadius="full" // Rounded edges
+
+                        boxShadow="md" // Shadow for depth
+                        _hover={{
+                            background: "white",
+                            transform: "scale(1.05)"
+                        }}
+                    >
+                        Show Queue</Button>
+
+                    <Box mt={4}>
+                        <Text fontSize="lg" fontWeight="bold">
+                            Estimated Wait Time: {estimatedWaitTime} minutes
+                        </Text>
+                    </Box>
+
+                </Box> */}
+            {companies.map((companies, i) => (
+                <>
+
+                    <Box width="50px" // Width of the square
+                        height="50px" // Height of the square
+                        backgroundColor="white" // Color of the square
+                        borderRadius="md" // Optional: to give rounded corners
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        color="black"
+                        fontFamily="Inter"
+                        fontWeight="bold"
+                    >
+                        {getPosition('Alice')} {/* Display the position */}
+                    </Box>
+
+
+                    <Box
+                        m={4}
+                        backgroundColor="lightblue"
+                        borderRadius="md"
+                        p={4}
+                        border="2px solid black"
+                        w="100%"
+                        display='flex'
+                        maxW="1000px"
+                        boxShadow="md"
+                    >
+                        <SimpleGrid columns={3} spacing={10} >
+                            {/* Column 1: Company Info */}
+                            <Box
+                                display='flex'
+                                slignItems='center'
+                                flexDirection='row'
                             >
-                                {joinedCompany[company["Company Name"]] ? "Joined Queue" : "Join Queue"}
-                            </Button>
-                        </Box>
-                    </SimpleGrid>
-                </Box>
-            ))}
+                                <Icon as={FaBuilding} boxSize={10} color="blue.500" mr={4} />
+                                <Heading as="h1" size="2xl" noOfLines={1} mb={4}>
+                                    {companies["Company Name"]}
+                                </Heading>
+                            </Box>
+                            <Box mt={4}>
+                                <Text fontSize="lg" fontWeight="bold">
+                                    Estimated Wait Time: {companies["Wait Time"]}
+                                </Text>
+                            </Box>
+
+
+                            {/* Column 2: Join Queue Button */}
+                            <Box
+                                p={4}
+                                //   backgroundColor="white"
+                                borderRadius="md"
+                                display="flex"
+                                flexDirection="column"
+                                justifyContent="center"
+                                alignItems="center"
+
+                            >
+                                <Button
+                                    onClick={() => joinQueue("Alice", companies["Company Name"])}
+                                    colorScheme="pink"
+                                    variant="solid"
+                                    px={4}
+                                    py={2}
+                                    borderRadius="full"
+                                    boxShadow="md"
+                                    _hover={{ bg: "pink.300", transform: "scale(1.05)" }}
+                                    mb={4}
+                                >
+                                    Join Queue
+                                </Button>
+                            </Box>
+                        </SimpleGrid>
+                    </Box>
+                    {/* <h1>{companyName} Apple </h1>
+            <button onClick={() => joinQueue('Alice', companyName)}>Join Queue</button>
+            <button onClick={showQueue(companyName)}>Show Queue</button> */}
+                </>
+            ))
+            }
         </div>
     );
 }
