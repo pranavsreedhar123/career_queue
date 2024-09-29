@@ -57,11 +57,10 @@ const companies = [
 ];
 
 function CompanyQueue() {
-    const [joinedCompany, setJoinedCompany] = useState({}); // Track if the user has joined a queue for each company
-    const [timers, setTimers] = useState({}); // Track timers for each company
-    const toast = useToast(); // Initialize toast for notifications
+    const [joinedCompany, setJoinedCompany] = useState({});
+    const [timers, setTimers] = useState({});
+    const toast = useToast();
 
-    // Load the joined company data and timers from localStorage when the component mounts
     useEffect(() => {
         const savedQueue = JSON.parse(localStorage.getItem("joinedQueue")) || {};
         const savedTimers = JSON.parse(localStorage.getItem("timers")) || {};
@@ -69,7 +68,6 @@ function CompanyQueue() {
         setJoinedCompany(savedQueue);
         setTimers(savedTimers);
 
-        // Start timers for any existing entries
         Object.keys(savedTimers).forEach((company) => {
             const timeLeft = savedTimers[company].timeLeft;
             if (timeLeft > 0) {
@@ -78,7 +76,6 @@ function CompanyQueue() {
         });
 
         return () => {
-            // Cleanup any timers when the component unmounts
             Object.keys(timers).forEach(company => {
                 clearInterval(timers[company]?.interval);
             });
@@ -86,9 +83,8 @@ function CompanyQueue() {
     }, []);
 
     const joinQueue = (companyName) => {
-        const waitTimeInSeconds = parseInt(companies.find(company => company["Company Name"] === companyName)["Wait Time"]) * 60; // Convert wait time to seconds
+        const waitTimeInSeconds = parseInt(companies.find(company => company["Company Name"] === companyName)["Wait Time"]) * 60;
 
-        // Mark the company as joined and save to localStorage
         const updatedJoinedCompany = {
             ...joinedCompany,
             [companyName]: true,
@@ -96,30 +92,44 @@ function CompanyQueue() {
         setJoinedCompany(updatedJoinedCompany);
         localStorage.setItem("joinedQueue", JSON.stringify(updatedJoinedCompany));
 
-        // Start the timer for the estimated wait time
         startTimer(companyName, waitTimeInSeconds);
+    };
+
+    const leaveQueue = (companyName) => {
+        // Cancel the timer for this company
+        if (timers[companyName]) {
+            clearInterval(timers[companyName]?.interval);
+        }
+
+        // Remove the company from the joined queue
+        const updatedJoinedCompany = { ...joinedCompany };
+        delete updatedJoinedCompany[companyName];
+        setJoinedCompany(updatedJoinedCompany);
+        localStorage.setItem("joinedQueue", JSON.stringify(updatedJoinedCompany));
+
+        // Remove the timer for this company
+        const updatedTimers = { ...timers };
+        delete updatedTimers[companyName];
+        setTimers(updatedTimers);
+        localStorage.setItem("timers", JSON.stringify(updatedTimers));
     };
 
     const startTimer = (companyName, waitTimeInSeconds) => {
         let timeLeft = waitTimeInSeconds;
 
-        // Clear existing timer if it exists
         if (timers[companyName]) {
             clearInterval(timers[companyName]?.interval);
         }
 
-        // Create a new interval
         const interval = setInterval(() => {
             timeLeft -= 1;
 
-            // Update timers state
             setTimers((prevTimers) => {
                 const newTimers = { ...prevTimers, [companyName]: { timeLeft, interval } };
-                localStorage.setItem("timers", JSON.stringify(newTimers)); // Save updated timers to localStorage
+                localStorage.setItem("timers", JSON.stringify(newTimers));
                 return newTimers;
             });
 
-            // Notify user when time is up
             if (timeLeft <= 0) {
                 clearInterval(interval);
                 toast({
@@ -129,13 +139,12 @@ function CompanyQueue() {
                     duration: 5000,
                     isClosable: true,
                 });
-                // Clear timer after alert
                 setTimers((prevTimers) => {
                     const updatedTimers = { ...prevTimers };
-                    delete updatedTimers[companyName]; // Remove the timer for this company
+                    delete updatedTimers[companyName];
                     return updatedTimers;
                 });
-                localStorage.setItem("timers", JSON.stringify({ ...timers, [companyName]: null })); // Update localStorage
+                localStorage.setItem("timers", JSON.stringify({ ...timers, [companyName]: null }));
             }
         }, 1000);
     };
@@ -157,7 +166,6 @@ function CompanyQueue() {
                     boxShadow="md"
                 >
                     <SimpleGrid columns={3} spacing={10}>
-                        {/* Column 1: Company Info */}
                         <Box display="flex" alignItems="center" flexDirection="row">
                             <Icon as={FaBuilding} boxSize={10} color="blue.500" mr={4} />
                             <Heading as="h1" size="2xl" noOfLines={1} mb={4}>
@@ -165,13 +173,11 @@ function CompanyQueue() {
                             </Heading>
                         </Box>
 
-                        {/* Column 2: Estimated Wait Time */}
                         <Box mt={4}>
                             <Text fontSize="lg" fontWeight="bold">
                                 Estimated Wait Time: {company["Wait Time"]}
                             </Text>
 
-                            {/* Conditionally render "Joined Queue" if the user has joined */}
                             {joinedCompany[company["Company Name"]] && (
                                 <Heading as="h3" size="md" color="red.500" mt={2}>
                                     Joined Queue: {Math.floor(parseInt(company["Wait Time"]) / 5) + 1}
@@ -188,7 +194,6 @@ function CompanyQueue() {
                             )}
                         </Box>
 
-                        {/* Column 3: Join Queue Button */}
                         <Box
                             p={4}
                             borderRadius="md"
@@ -198,7 +203,7 @@ function CompanyQueue() {
                             alignItems="center"
                         >
                             <Button
-                                onClick={() => joinQueue(company["Company Name"])} // Pass company dynamically
+                                onClick={() => joinQueue(company["Company Name"])}
                                 colorScheme="pink"
                                 variant="solid"
                                 px={4}
@@ -207,10 +212,24 @@ function CompanyQueue() {
                                 boxShadow="md"
                                 _hover={{ bg: "pink.300", transform: "scale(1.05)" }}
                                 mb={4}
-                                disabled={joinedCompany[company["Company Name"]]} // Disable button if already joined
+                                disabled={joinedCompany[company["Company Name"]]}
                             >
                                 {joinedCompany[company["Company Name"]] ? "Joined Queue" : "Join Queue"}
                             </Button>
+                            {joinedCompany[company["Company Name"]] && (
+                                <Button
+                                    onClick={() => leaveQueue(company["Company Name"])}
+                                    colorScheme="red"
+                                    variant="solid"
+                                    px={4}
+                                    py={2}
+                                    borderRadius="full"
+                                    boxShadow="md"
+                                    _hover={{ bg: "red.300", transform: "scale(1.05)" }}
+                                >
+                                    Leave Queue
+                                </Button>
+                            )}
                         </Box>
                     </SimpleGrid>
                 </Box>
@@ -220,4 +239,3 @@ function CompanyQueue() {
 }
 
 export default CompanyQueue;
-
