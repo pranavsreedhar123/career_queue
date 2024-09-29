@@ -1,0 +1,118 @@
+/* Root styling for the whole page */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7fafc; /* Softer background color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Main container for the companies' grid */
+  .company-grid-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  /* Styling for each company box */
+  .company-box {
+    background-color: #ffffff;
+    border-radius: 20px; /* Smoother, larger rounding */
+    border: none; /* Removed solid border */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* More pronounced shadow */
+    padding: 25px;
+    margin: 15px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Slower, smoother transition */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Hover effect for the company box */
+  .company-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+  }
+  
+  /* Header section inside each company box */
+  .company-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Icon styling for the building icon */
+  .company-icon {
+    color: #6b7280; /* Softer gray color for icon */
+    margin-right: 15px;
+    font-size: 2rem; /* Slightly larger icon */
+  }
+  
+  /* Styling for the company name */
+  .company-name {
+    font-size: 26px;
+    font-weight: 600; /* Softer weight for a cleaner look */
+    color: #2d3748;
+    margin-bottom: 5px;
+  }
+  
+  /* Text showing wait time */
+  .company-wait-time {
+    font-size: 18px;
+    font-weight: 400; /* Lighter font weight */
+    color: #4a5568;
+  }
+  
+  /* Button styling for joining the queue */
+  .join-queue-button,
+  .leave-queue-button {
+    display: inline-block;
+    padding: 12px 25px; /* Bigger padding for more prominence */
+    border-radius: 25px; /* Smoother round buttons */
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12); /* Subtle shadow for depth */
+  }
+  
+  .join-queue-button {
+    background-color: #ed64a6;
+    color: white;
+  }
+  
+  .leave-queue-button {
+    background-color: #f56565;
+    color: white;
+  }
+  
+  /* Hover effect for buttons */
+  .join-queue-button:hover,
+  .leave-queue-button:hover {
+    transform: scale(1.07); /* Increased scaling for more pop */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  }
+  
+  /* Disabled button style */
+  .join-queue-button[disabled] {
+    background-color: #d53f8c;
+    cursor: not-allowed;
+  }
+  
+  /* Timer text styling */
+  .queue-timer {
+    color: #e53e3e;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  
+  .queue-timer small {
+    font-size: 14px;
+    color: #718096;
+  }
+  

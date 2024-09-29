@@ -1,0 +1,14 @@
+html, body {
+    height: 100%; /* Full height for both the html and body */
+    margin: 0; /* Remove default margin */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+  
+  .map-image {
+    max-width: 80%; /* Make the image responsive, optional */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional: Rounded corners */
+  }
+  
