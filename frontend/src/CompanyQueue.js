@@ -12,13 +12,7 @@ import {
 import { FaBuilding } from "react-icons/fa";
 
 const companies = [
-    {
-        "Company Name": "Apple",
-        "Location": "A0",
-        "Logo": "",
-        "Number of People": 5,
-        "Wait Time": "25 min"
-    },
+
     {
         "Company Name": "Meta",
         "Location": "A1",
@@ -53,7 +47,8 @@ const companies = [
         "Logo": "",
         "Number of People": 6,
         "Wait Time": "30 min"
-    }
+    },
+
 ];
 
 function CompanyQueue() {
@@ -68,13 +63,15 @@ function CompanyQueue() {
         setJoinedCompany(savedQueue);
         setTimers(savedTimers);
 
+        // Restart timers for companies in the queue with saved time left
         Object.keys(savedTimers).forEach((company) => {
-            const timeLeft = savedTimers[company].timeLeft;
+            const timeLeft = savedTimers[company]?.timeLeft;
             if (timeLeft > 0) {
                 startTimer(company, timeLeft);
             }
         });
 
+        // Cleanup on component unmount
         return () => {
             Object.keys(timers).forEach(company => {
                 clearInterval(timers[company]?.interval);
@@ -83,7 +80,8 @@ function CompanyQueue() {
     }, []);
 
     const joinQueue = (companyName) => {
-        const waitTimeInSeconds = parseInt(companies.find(company => company["Company Name"] === companyName)["Wait Time"]) * 60;
+        const company = companies.find((company) => company["Company Name"] === companyName);
+        const waitTimeInSeconds = parseInt(company["Wait Time"]) * 60; // Convert minutes to seconds
 
         const updatedJoinedCompany = {
             ...joinedCompany,
@@ -117,6 +115,7 @@ function CompanyQueue() {
     const startTimer = (companyName, waitTimeInSeconds) => {
         let timeLeft = waitTimeInSeconds;
 
+        // Clear any existing interval for this company
         if (timers[companyName]) {
             clearInterval(timers[companyName]?.interval);
         }
@@ -126,9 +125,14 @@ function CompanyQueue() {
 
             setTimers((prevTimers) => {
                 const newTimers = { ...prevTimers, [companyName]: { timeLeft, interval } };
-                localStorage.setItem("timers", JSON.stringify(newTimers));
                 return newTimers;
             });
+
+            // Save only the time left in local storage every 10 seconds to reduce excessive writes
+            if (timeLeft % 10 === 0) {
+                const currentTimers = { ...timers, [companyName]: { timeLeft } };
+                localStorage.setItem("timers", JSON.stringify(currentTimers));
+            }
 
             if (timeLeft <= 0) {
                 clearInterval(interval);
@@ -139,6 +143,7 @@ function CompanyQueue() {
                     duration: 5000,
                     isClosable: true,
                 });
+
                 setTimers((prevTimers) => {
                     const updatedTimers = { ...prevTimers };
                     delete updatedTimers[companyName];
@@ -180,7 +185,7 @@ function CompanyQueue() {
 
                             {joinedCompany[company["Company Name"]] && (
                                 <Heading as="h3" size="md" color="red.500" mt={2}>
-                                    Joined Queue: {Math.floor(parseInt(company["Wait Time"]) / 5) + 1}
+                                    Joined Queue
                                     {timers[company["Company Name"]] && (
                                         <Text>
                                             {" "}
