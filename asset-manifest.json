@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4af6245e.css",
+    "main.js": "/static/js/main.0c3b4f74.js",
+    "static/js/453.49a35b1c.chunk.js": "/static/js/453.49a35b1c.chunk.js",
+    "static/media/career_fair_map.png": "/static/media/career_fair_map.69a318e0f40aee1ac3b7.png",
+    "static/media/logo.png": "/static/media/logo.ff864e53c0d698dcdc52.png",
+    "static/media/pin.png": "/static/media/pin.2c1aac2cf814fc4ea76b.png",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/index.html",
+    "main.4af6245e.css.map": "/static/css/main.4af6245e.css.map",
+    "main.0c3b4f74.js.map": "/static/js/main.0c3b4f74.js.map",
+    "453.49a35b1c.chunk.js.map": "/static/js/453.49a35b1c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4af6245e.css",
+    "static/js/main.0c3b4f74.js"
+  ]
+}
