@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Alice Johnson",
+        "email": "alice.johnson@example.com",
+        "graduationYear": 2025,
+        "skills": ["JavaScript", "Python", "Machine Learning"]
+    },
+    {
+        "name": "Bob Lee",
+        "email": "bob.lee@example.com",
+        "graduationYear": 2024,
+        "skills": ["Java", "C++", "Spring Boot"]
+    },
+    {
+        "name": "Clara Matthews",
+        "email": "clara.matthews@example.com",
+        "graduationYear": 2023,
+        "skills": ["React", "Node.js", "SQL"]
+    },
+    {
+        "name": "Daniel Chen",
+        "email": "daniel.chen@example.com",
+        "graduationYear": 2024,
+        "skills": ["Python", "Django", "Flask"]
+    },
+    {
+        "name": "Emily Davis",
+        "email": "emily.davis@example.com",
+        "graduationYear": 2023,
+        "skills": ["Go", "Kubernetes", "Docker"]
+    }
+]

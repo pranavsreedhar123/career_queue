@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import queueRouter from "./queueRouter.js"; // Ensure this path is correct
+import studentRouter from './studentRouter.js';
+import companyRouter from './companyRouter.js';
 
 const app = express();
 dotenv.config();
@@ -33,6 +35,13 @@ app.use("/queue", queueRouter);
 app.get("/", (req, res) => {
     res.json({ msg: "Welcome G=Hack!" });
 });
+
+// Student routes
+app.use("/students", studentRouter);
+
+// Company routes
+app.use("/companies", companyRouter);
+
 
 
 

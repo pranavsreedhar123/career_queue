@@ -1,0 +1,152 @@
+[
+    {
+        "name": "Amazon",
+        "location": 0,
+        "queue": []
+    },
+    {
+        "name": "Meta",
+        "location": 1,
+        "queue": []
+    },
+    {
+        "name": "Netflix",
+        "location": 2,
+        "queue": []
+    },
+    {
+        "name": "Tesla",
+        "location": 3,
+        "queue": []
+    },
+    {
+        "name": "IBM",
+        "location": 4,
+        "queue": []
+    },
+    {
+        "name": "Google",
+        "location": 5,
+        "queue": []
+    },
+    {
+        "name": "Microsoft",
+        "location": 6,
+        "queue": []
+    },
+    {
+        "name": "Salesforce",
+        "location": 7,
+        "queue": []
+    },
+    {
+        "name": "Apple",
+        "location": 8,
+        "queue": []
+    },
+    {
+        "name": "Spotify",
+        "location": 9,
+        "queue": []
+    },
+    {
+        "name": "Uber",
+        "location": 10,
+        "queue": []
+    },
+    {
+        "name": "Airbnb",
+        "location": 11,
+        "queue": []
+    },
+    {
+        "name": "Twitter",
+        "location": 12,
+        "queue": []
+    },
+    {
+        "name": "LinkedIn",
+        "location": 13,
+        "queue": []
+    },
+    {
+        "name": "Stripe",
+        "location": 14,
+        "queue": []
+    },
+    {
+        "name": "Intel",
+        "location": 15,
+        "queue": []
+    },
+    {
+        "name": "Oracle",
+        "location": 16,
+        "queue": []
+    },
+    {
+        "name": "Cisco",
+        "location": 17,
+        "queue": []
+    },
+    {
+        "name": "Adobe",
+        "location": 18,
+        "queue": []
+    },
+    {
+        "name": "Snapchat",
+        "location": 19,
+        "queue": []
+    },
+    {
+        "name": "Reddit",
+        "location": 20,
+        "queue": []
+    },
+    {
+        "name": "Square",
+        "location": 21,
+        "queue": []
+    },
+    {
+        "name": "Pinterest",
+        "location": 22,
+        "queue": []
+    },
+    {
+        "name": "Shopify",
+        "location": 23,
+        "queue": []
+    },
+    {
+        "name": "Slack",
+        "location": 24,
+        "queue": []
+    },
+    {
+        "name": "GitHub",
+        "location": 25,
+        "queue": []
+    },
+    {
+        "name": "Zoom",
+        "location": 26,
+        "queue": []
+    },
+    {
+        "name": "Atlassian",
+        "location": 27,
+        "queue": []
+    },
+    {
+        "name": "Dropbox",
+        "location": 28,
+        "queue": []
+    },
+    {
+        "name": "Palantir",
+        "location": 29,
+        "queue": []
+    }
+]
