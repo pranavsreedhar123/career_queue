@@ -1,4 +1,6 @@
-* Main container for the profile */ .student-profile-container {
+/* Main container for the profile */
+.student-profile-container {
+
   max-width: 800px;
   margin: 50px auto;
   padding: 40px 20px;
@@ -18,6 +20,7 @@
   margin-bottom: 10px;
   margin: auto;
   /* Center the image */
+
 }
 
 /* Text styling for name */
@@ -49,6 +52,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+
   padding-left: 50px;
   /* Shift the fields to the right */
 }
@@ -56,8 +60,10 @@
 /* Top Skills section */
 .skills-container {
   margin-top: 20px;
+
   padding-left: 50px;
   /* Move skills slightly to the right */
+
 }
 
 .skills-title {
@@ -149,6 +155,7 @@
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .student-profile-container {
+
     padding: 20px;
   }
 

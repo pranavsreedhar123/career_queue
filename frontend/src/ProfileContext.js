@@ -5,6 +5,8 @@ export const ProfileContext = createContext();
 
 // Provider component to wrap around the app
 export const ProfileProvider = ({ children }) => {
+  
+
     // Initial state, can load from localStorage if it exists
     const [profileData, setProfileData] = useState(() => {
         const savedProfile = localStorage.getItem("profileData");

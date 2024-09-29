@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
+import theme from "./theme";
 import Navbar from "./components/Navbar";
 import {
     Box,
-    SimpleGrid,
-    Heading,
+    VStack,
+    HStack,
     Text,
+    Image,
     Button,
-    Icon,
+    SimpleGrid,
+    Input,
     useToast,
+    Heading,
+    Badge,
+    Icon
 } from "@chakra-ui/react";
+import { FaList } from "react-icons/fa";
 import { FaBuilding } from "react-icons/fa";
 
 const companies = [
@@ -27,34 +34,56 @@ const companies = [
         "Wait Time": "55 min"
     },
     {
-        "Company Name": "NCR",
+        "Company Name": "Spotify",
         "Location": "A2",
         "Logo": "",
-        "Number of People": 9,
-        "Wait Time": "45 min"
+        "Number of People": 4,
+        "Wait Time": "20 min"
     },
     {
         "Company Name": "Google",
         "Location": "B0",
         "Logo": "",
-        "Number of People": 7,
-        "Wait Time": "35 min"
+        "Number of People": 6,
+        "Wait Time": "30 min"
     },
     {
-        "Company Name": "Spotify",
+        "Company Name": "Verizon",
         "Location": "B1",
         "Logo": "",
-        "Number of People": 7,
-        "Wait Time": "35 min"
+        "Number of People": 3,
+        "Wait Time": "15 min"
     },
     {
         "Company Name": "Bose",
         "Location": "B2",
         "Logo": "",
-        "Number of People": 6,
-        "Wait Time": "30 min"
+        "Number of People": 8,
+        "Wait Time": "40 min"
+    },
+    {
+        "Company Name": "Sony",
+        "Location": "C0",
+        "Logo": "",
+        "Number of People": 3,
+        "Wait Time": "15 min"
+    },
+    {
+        "Company Name": "NCR",
+        "Location": "C1",
+        "Logo": "",
+        "Number of People": 9,
+        "Wait Time": "45 min"
+    },
+    {
+        "Company Name": "Tesla",
+        "Location": "C2",
+        "Logo": "",
+        "Number of People": 3,
+        "Wait Time": "15 min"
     }
 ];
+
 
 function CompanyQueue() {
     const [joinedCompany, setJoinedCompany] = useState({});
@@ -120,7 +149,10 @@ function CompanyQueue() {
         if (timers[companyName]) {
             clearInterval(timers[companyName]?.interval);
         }
+    };
 
+
+  
         const interval = setInterval(() => {
             timeLeft -= 1;
 
@@ -149,9 +181,14 @@ function CompanyQueue() {
         }, 1000);
     };
 
+    // Call these functions as needed, or create buttons to trigger them
+
     return (
         <div>
             <Navbar />
+      
+      
+      
             {companies.map((company, i) => (
                 <Box
                     key={i}
@@ -225,6 +262,7 @@ function CompanyQueue() {
                                     py={2}
                                     borderRadius="full"
                                     boxShadow="md"
+
                                     _hover={{ bg: "red.300", transform: "scale(1.05)" }}
                                 >
                                     Leave Queue
