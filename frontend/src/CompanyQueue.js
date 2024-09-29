@@ -1,4 +1,4 @@
-mport React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import {
    Box,
